@@ -1,8 +1,7 @@
-import WindowManager from './WindowManager.js'
-
-
+import WindowManager from './WindowManager.js';
 
 const t = THREE;
+const loader = new THREE.ObjectLoader();
 let camera, scene, renderer, world;
 let near, far;
 let pixR = window.devicePixelRatio ? window.devicePixelRatio : 1;
@@ -127,13 +126,17 @@ else
 			let c = new t.Color();
 			c.setHSL(i * .1, 1.0, .5);
 
-			//let s = 100 + i * 50;
+			// CreateMeshFromURL(); // todo. parse from JSON to GLTF
+		
+			let s = 100 + i * 50;
 			let cube = new t.Mesh(new t.OctahedronGeometry(200, 1), new t.MeshBasicMaterial({color: c , wireframe: true}));
+
 			cube.position.x = win.shape.x + (win.shape.w * .5);
 			cube.position.y = win.shape.y + (win.shape.h * .5);
 
 			world.add(cube);
 			cubes.push(cube);
+			
 		}
 	}
 
@@ -193,5 +196,23 @@ else
 		camera = new t.OrthographicCamera(0, width, 0, height, -10000, 10000);
 		camera.updateProjectionMatrix();
 		renderer.setSize( width, height );
+	}
+
+	function CreateMeshFromURL()
+	{
+		
+		loader.load( '.models/scene.json'), 
+		
+		function ( gltf ) {
+			world.add(gltf);
+		}, 
+
+		function ( xhr ) {
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+		},
+
+		function ( error ) {
+			console.error( error );
+		};
 	}
 }
