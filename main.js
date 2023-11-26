@@ -71,7 +71,7 @@ else
 		
 		camera.position.z = 2.5;
 		near = camera.position.z - .5;
-		far = camera.position.z + 0.5;
+		far = camera.position.z + .5;
 
 		scene = new t.Scene();
 		scene.background = new t.Color(0.0);
@@ -127,8 +127,8 @@ else
 			let c = new t.Color();
 			c.setHSL(i * .1, 1.0, .5);
 
-			let s = 100 + i * 50;
-			let cube = new t.Mesh(new t.BoxGeometry(s, s, s), new t.MeshBasicMaterial({color: c , wireframe: true}));
+			//let s = 100 + i * 50;
+			let cube = new t.Mesh(new t.OctahedronGeometry(200, 1), new t.MeshBasicMaterial({color: c , wireframe: true}));
 			cube.position.x = win.shape.x + (win.shape.w * .5);
 			cube.position.y = win.shape.y + (win.shape.h * .5);
 
